@@ -131,7 +131,7 @@ namespace NadekoBot.Modules.Gambling
                     amount = 100;
 
                 var title = GetText("flowerreaction_title");
-                var desc = GetText("flowerreaction_desc", "🌸", Format.Bold(amount.ToString()) + _bc.CurrencySign);
+                var desc = GetText("flowerreaction_desc", "💸", Format.Bold(amount.ToString()) + _bc.CurrencySign);
                 var footer = GetText("flowerreaction_footer", 24);
                 var msg = await context.Channel.SendConfirmAsync(title,
                         desc, footer: footer)
@@ -182,7 +182,7 @@ namespace NadekoBot.Modules.Gambling
         private Task MessageDeletedEventHandler(Cacheable<IMessage, ulong> msg, ISocketMessageChannel channel) {
             if (StartingMessage?.Id == msg.Id)
             {
-                _log.Warn("Stopping flower reaction event because message is deleted.");
+                _log.Warn("Stopping dollar reaction event because message is deleted.");
                 var __ = Task.Run(End);
             }
 
@@ -194,10 +194,10 @@ namespace NadekoBot.Modules.Gambling
             StartingMessage = umsg;
             _client.MessageDeleted += MessageDeletedEventHandler;
 
-            try { await StartingMessage.AddReactionAsync(new Emoji("🌸")).ConfigureAwait(false); }
+            try { await StartingMessage.AddReactionAsync(new Emoji("💸")).ConfigureAwait(false); }
             catch
             {
-                try { await StartingMessage.AddReactionAsync(new Emoji("🌸")).ConfigureAwait(false); }
+                try { await StartingMessage.AddReactionAsync(new Emoji("💸")).ConfigureAwait(false); }
                 catch
                 {
                     try { await StartingMessage.DeleteAsync().ConfigureAwait(false); }
@@ -208,7 +208,7 @@ namespace NadekoBot.Modules.Gambling
             {
                 try
                 {
-                    if (r.Emote.Name == "🌸" && r.User.IsSpecified && ((DateTime.UtcNow - r.User.Value.CreatedAt).TotalDays > 5) && _flowerReactionAwardedUsers.Add(r.User.Value.Id))
+                    if (r.Emote.Name == "💸" && r.User.IsSpecified && ((DateTime.UtcNow - r.User.Value.CreatedAt).TotalDays > 5) && _flowerReactionAwardedUsers.Add(r.User.Value.Id))
                     {
                         await _cs.AddAsync(r.User.Value, "Flower Reaction Event", amount, false)
                             .ConfigureAwait(false);
@@ -231,7 +231,7 @@ namespace NadekoBot.Modules.Gambling
                 if (CancelToken.IsCancellationRequested)
                     return;
 
-                _log.Warn("Stopping flower reaction event because it expired.");
+                _log.Warn("Stopping Dollar reaction event because it expired.");
                 await End();
                 
             }
