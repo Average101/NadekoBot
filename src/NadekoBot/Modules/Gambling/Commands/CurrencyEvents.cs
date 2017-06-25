@@ -182,7 +182,7 @@ namespace NadekoBot.Modules.Gambling
         private Task MessageDeletedEventHandler(Cacheable<IMessage, ulong> msg, ISocketMessageChannel channel) {
             if (StartingMessage?.Id == msg.Id)
             {
-                _log.Warn("Stopping dollar reaction event because message is deleted.");
+                _log.Warn("Stopping Otaku Buck reaction event because message is deleted.");
                 var __ = Task.Run(End);
             }
 
@@ -231,7 +231,7 @@ namespace NadekoBot.Modules.Gambling
                 if (CancelToken.IsCancellationRequested)
                     return;
 
-                _log.Warn("Stopping Dollar reaction event because it expired.");
+                _log.Warn("Stopping Otaku Buck reaction event because it expired.");
                 await End();
                 
             }
